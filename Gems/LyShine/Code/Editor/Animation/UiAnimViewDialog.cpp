@@ -368,14 +368,14 @@ void CUiAnimViewDialog::InitToolbar()
     m_playToolBar->setObjectName("m_playToolBar");
     m_playToolBar->setFloatable(false);
     m_playToolBar->addWidget(new QLabel("Play:"));
-    qaction = m_playToolBar->addAction(QIcon(":/Trackview/play/tvplay-00.png"), "Go to start of sequence");
+    qaction = m_playToolBar->addAction(QIcon(":/Trackview/SequenceStart.svg"), "Go to start of sequence");
     qaction->setData(ID_TV_JUMPSTART);
     m_actions[ID_TV_JUMPSTART] = qaction;
     connect(qaction, &QAction::triggered, this, &CUiAnimViewDialog::OnGoToStart);
 
     QToolButton* toolButton = new QToolButton(m_playToolBar);
     toolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    qaction = new QAction(QIcon(":/Trackview/play/tvplay-01.png"), "Play Animation", this);
+    qaction = new QAction(QIcon(":/Playback/PlayForward.svg"), "Play Animation", this);
     qaction->setData(ID_TV_PLAY);
     qaction->setCheckable(true);
     m_actions[ID_TV_PLAY] = qaction;
@@ -413,7 +413,7 @@ void CUiAnimViewDialog::InitToolbar()
 
     toolButton = new QToolButton(m_playToolBar);
     toolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    qaction = new QAction(QIcon(":/Trackview/play/tvplay-02.png"), "Stop", this);
+    qaction = new QAction(QIcon(":/Playback/Stop.svg"), "Stop", this);
     qaction->setData(ID_TV_STOP);
     m_actions[ID_TV_STOP] = qaction;
     connect(qaction, &QAction::triggered, this, &CUiAnimViewDialog::OnStop);
@@ -431,24 +431,24 @@ void CUiAnimViewDialog::InitToolbar()
     m_playToolBar->addWidget(toolButton);
 
     m_playToolBar->addSeparator();
-    qaction = m_playToolBar->addAction(QIcon(":/Trackview/play/tvplay-03.png"), "Pause");
+    qaction = m_playToolBar->addAction(QIcon(":/Playback/Pause.svg"), "Pause");
     qaction->setData(ID_TV_PAUSE);
     qaction->setCheckable(true);
     m_actions[ID_TV_PAUSE] = qaction;
     connect(qaction, &QAction::triggered, this, &CUiAnimViewDialog::OnPause);
-    qaction = m_playToolBar->addAction(QIcon(":/Trackview/play/tvplay-04.png"), "Go to end of sequence");
+    qaction = m_playToolBar->addAction(QIcon(":/Playback/SequenceEnd.svg"), "Go to end of sequence");
     qaction->setData(ID_TV_JUMPEND);
     m_actions[ID_TV_JUMPEND] = qaction;
     connect(qaction, &QAction::triggered, this, &CUiAnimViewDialog::OnGoToEnd);
 
-    qaction = m_playToolBar->addAction(QIcon(":/Trackview/play/tvplay-05.png"), "Start Animation Recording");
+    qaction = m_playToolBar->addAction(QIcon(":/Playback/RecordButton.svg"), "Start Animation Recording");
     qaction->setData(ID_TV_RECORD);
     qaction->setCheckable(true);
     m_actions[ID_TV_RECORD] = qaction;
     connect(qaction, &QAction::triggered, this, &CUiAnimViewDialog::OnRecord);
 
     m_playToolBar->addSeparator();
-    qaction = m_playToolBar->addAction(QIcon(":/Trackview/play/tvplay-07.png"), "Loop");
+    qaction = m_playToolBar->addAction(QIcon(":/Playback/Loop.svg"), "Loop");
     qaction->setData(ID_PLAY_LOOP);
     qaction->setCheckable(true);
     m_actions[ID_PLAY_LOOP] = qaction;
@@ -459,14 +459,14 @@ void CUiAnimViewDialog::InitToolbar()
     m_playToolBar->addWidget(m_cursorPos);
 
     m_playToolBar->addSeparator();
-    qaction = m_playToolBar->addAction(QIcon(":/Trackview/play/tvplay-09.png"), "Undo");
+    qaction = m_playToolBar->addAction(QIcon(":/Playback/Loop.svg"), "Undo");
     qaction->setData(ID_UNDO);
     m_actions[ID_UNDO] = qaction;
     connect(qaction, &QAction::triggered, this, []()
         {
             UiAnimUndoManager::Get()->Undo();
         });
-    qaction = m_playToolBar->addAction(QIcon(":/Trackview/play/tvplay-10.png"), "Redo");
+    qaction = m_playToolBar->addAction(QIcon(":/Playback/Loop.svg"), "Redo");
     qaction->setData(ID_REDO);
     m_actions[ID_REDO] = qaction;
     connect(qaction, &QAction::triggered, this, []()

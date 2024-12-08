@@ -50,16 +50,6 @@
     </qresource>
     <qresource prefix="/Trackview/play">
         <file>tvplay-00.png</file>
-        <file>tvplay-01.png</file>
-        <file>tvplay-02.png</file>
-        <file>tvplay-03.png</file>
-        <file>tvplay-04.png</file>
-        <file>tvplay-05.png</file>
-        <file>tvplay-06.png</file>
-        <file>tvplay-07.png</file>
-        <file>tvplay-08.png</file>
-        <file>tvplay-09.png</file>
-        <file>tvplay-10.png</file>
     </qresource>
     <qresource prefix="/Trackview/keys">
         <file>tvkeys-00.png</file>
@@ -87,20 +77,6 @@
         <file>trackview_keys_03.png</file>
         <file>clapperboard_cancel.png</file>
         <file>clapperboard_ready.png</file>
-
-    </qresource>
-    <qresource prefix="/Trackview">
-        <file>Pause.svg</file>
-        <file>PlayBackward.svg</file>
-        <file>PlayForward.svg</file>
-        <file>Stop.svg</file>
-        <file>StopRecorder.svg</file>
-        <file>Loop.svg</file>
-        <file>Pause.svg</file>
-        <file>RecordButton.svg</file>
-        <file>SequenceEnd.svg</file>
-        <file>SequenceStart.svg</file>
-        <file>AutoRecord.svg</file>
     </qresource>
     <qresource prefix="/TrackViewCurveEditor">
         <file>spline_edit_bar_00.png</file>
@@ -119,6 +95,6 @@
         <file>spline_edit_bar_13.png</file>
         <file>spline_edit_bar_14.png</file>
         <file>spline_edit_bar_15.png</file>
-       <file>spline_edit_bar_16.png</file>
-     </qresource>
+        <file>spline_edit_bar_16.png</file>
+    </qresource>
 </RCC>

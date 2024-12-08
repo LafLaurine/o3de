@@ -70,16 +70,6 @@
     </qresource>
     <qresource prefix="/Trackview/play">
         <file>tvplay-00.png</file>
-        <file>tvplay-01.png</file>
-        <file>tvplay-02.png</file>
-        <file>tvplay-03.png</file>
-        <file>tvplay-04.png</file>
-        <file>tvplay-05.png</file>
-        <file>tvplay-06.png</file>
-        <file>tvplay-07.png</file>
-        <file>tvplay-08.png</file>
-        <file>tvplay-09.png</file>
-        <file>tvplay-10.png</file>
     </qresource>
     <qresource prefix="/Trackview/keys">
         <file>tvkeys-00.png</file>
