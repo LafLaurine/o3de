@@ -544,6 +544,8 @@ namespace AzToolsFramework
 
         void AssetBrowserTableView::UpdateFilterInLocalFilterModel()
         {
+            Q_EMIT filterChangedSignal();
+
             if (!m_assetTreeView)
             {
                 return;

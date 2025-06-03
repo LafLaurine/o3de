@@ -117,6 +117,8 @@ private Q_SLOTS:
     void CurrentIndexChangedSlot(const QModelIndex& idx) const;
     void DoubleClickedItem(const QModelIndex& element);
     void BreadcrumbsPathChangedSlot(const QString& path) const;
+    void BreadcrumbsPathEditedSlot(const QString& path) const;
+    void ViewChangedSlot() const;
     void OnFilterCriteriaChanged();
 };
 
