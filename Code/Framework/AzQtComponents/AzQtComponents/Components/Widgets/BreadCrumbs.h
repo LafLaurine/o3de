@@ -147,12 +147,7 @@ namespace AzQtComponents
     Q_SIGNALS:
         //! Triggered when the currently displayed path changes via any of the slots.
         //! @return fullPath The new path after the change.
-        void pathChanged(const QString& fullPath);
-        //! Triggered after user changes the path in editable BreadCrumbs.
-        //!
-        //! @warning the actual path won't be pushed and the BreadCrumbs won't change. It's up to the user of this class to first check
-        //! the validity of the path provided by the user and call e.g. pushPath() to actually change what is stored in the breadcrumbs
-        void pathEdited(const QString& requestedPath);
+        void pathChanged(const QString& fullPath, const bool& isPathEdited);
         //! Triggered when a link is clicked.
         //! @param linkPath The path of the clicked link.
         //! @param linkIndex The index of the link.
@@ -177,7 +172,7 @@ namespace AzQtComponents
     private:
         QString generateIconHtml(int index);
         void fillLabel();
-        void changePath(const QString& newPath);
+        void changePath(const QString& newPath, const bool& isPathEdited);
 
         void getButtonStates(BreadCrumbButtonStates buttonStates);
         void emitButtonSignals(BreadCrumbButtonStates previousButtonStates);

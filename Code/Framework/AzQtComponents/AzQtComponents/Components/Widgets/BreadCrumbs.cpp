@@ -317,7 +317,7 @@ namespace AzQtComponents
 
         m_forwardPaths.clear();
 
-        changePath(sanitizedPath);
+        changePath(sanitizedPath, false);
 
         emitButtonSignals(buttonStates);
     }
@@ -350,7 +350,7 @@ namespace AzQtComponents
 
         QString newPath = m_backPaths.pop();
 
-        changePath(newPath);
+        changePath(newPath, false);
 
         emitButtonSignals(buttonStates);
 
@@ -371,7 +371,7 @@ namespace AzQtComponents
 
         QString newPath = m_forwardPaths.pop();
 
-        changePath(newPath);
+        changePath(newPath, false);
 
         emitButtonSignals(buttonStates);
 
@@ -481,7 +481,7 @@ namespace AzQtComponents
         m_lineEdit->setText(m_currentPath);
         if (requestedPath != m_currentPath)
         {
-            Q_EMIT pathEdited(requestedPath);
+            changePath(requestedPath, true);
         }
         m_labelEditStack->setCurrentWidget(m_label);
     }
@@ -604,16 +604,16 @@ namespace AzQtComponents
         m_label->setText(htmlString);
     }
 
-    void BreadCrumbs::changePath(const QString& newPath)
+    void BreadCrumbs::changePath(const QString& newPath, const bool& isPathEdited)
     {
-        if (newPath == m_currentPath)
+        if (!isPathEdited && newPath == m_currentPath)
         {
             return;
         }
         setCurrentPath(newPath);
         updateGeometry();
 
-        Q_EMIT pathChanged(m_currentPath);
+        Q_EMIT pathChanged(m_currentPath, isPathEdited);
     }
 
     void BreadCrumbs::getButtonStates(BreadCrumbButtonStates buttonStates)

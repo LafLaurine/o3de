@@ -83,14 +83,6 @@ connect(breadCrumbs, &AzQtComponents::BreadCrumbs::pathChanged, this, [](const Q
 // To get the current path:
 QString currentPath = breadCrumbs->currentPath();
 
-// To make breadcrumbs editable by the user.
-breadCrumbs->setEditable(true);
-connect(breadCrumbs, &AzQtComponents::BreadCrumbs::pathEdited, this, [breadCrumbs](const QString& requestedPath){
-    // Handle user request
-    // WARNING: breadcrumbs themselves won't change the path. If user request is valid, set the path:
-    breadCrumbs->pushPath(requestedPath);
-});
-
 // Create auto-connected navigation buttons and layout everything in a group widget:
 QWidget* group = new QWidget(this);
 QHBoxLayout* groupLayout = new QHBoxLayout(group);

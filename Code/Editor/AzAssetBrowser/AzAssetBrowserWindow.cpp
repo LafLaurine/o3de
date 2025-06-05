@@ -288,9 +288,12 @@ AzAssetBrowserWindow::AzAssetBrowserWindow(QWidget* parent)
         m_ui->m_assetBrowserTreeViewWidget->SelectFolder(path.toUtf8().constData());
     });
     connect(m_ui->m_pathBreadCrumbs, &AzQtComponents::BreadCrumbs::pathChanged, this, &AzAssetBrowserWindow::BreadcrumbsPathChangedSlot);
-    connect(m_ui->m_pathBreadCrumbs, &AzQtComponents::BreadCrumbs::pathEdited, this, &AzAssetBrowserWindow::BreadcrumbsPathEditedSlot);
 
-    connect(m_ui->m_tableView, &AssetBrowserTableView::filterChangedSignal, this, &AzAssetBrowserWindow::ViewChangedSlot);
+    connect(
+        m_ui->m_tableView,
+        &AssetBrowserTableView::UpdateFilterInLocalFilterModelSignal,
+        this,
+        &AzAssetBrowserWindow::UpdateFilterInLocalFilterModelSlot);
 
     connect(m_ui->m_thumbnailViewButton, &QAbstractButton::clicked, this, [this] { SetCurrentMode(AssetBrowserMode::ThumbnailView); });
     connect(m_ui->m_tableViewButton, &QAbstractButton::clicked, this, [this] { SetCurrentMode(AssetBrowserMode::TableView); });
@@ -981,8 +984,19 @@ void AzAssetBrowserWindow::DoubleClickedItem([[maybe_unused]] const QModelIndex&
 
 //! This slot ignores path change coming from breadcrumbs if we already have a file selected directly in this folder. This may happen
 //! in the one column mode where tree view shows files too.
-void AzAssetBrowserWindow::BreadcrumbsPathChangedSlot(const QString& path) const
+void AzAssetBrowserWindow::BreadcrumbsPathChangedSlot(const QString& path, const bool& isPathEdited) const
 {
+    if (isPathEdited)
+    {
+        const auto* entry = m_ui->m_assetBrowserTreeViewWidget->GetEntryByPath(path);
+        const auto* folderEntry = AzToolsFramework::AssetBrowser::Utils::FolderForEntry(entry);
+        if (folderEntry)
+        {
+            // No need to select the folder ourselves, callback from Breadcrumbs will take care of that
+            m_ui->m_pathBreadCrumbs->pushFullPath(FromStdString(folderEntry->GetFullPath()), FromStdString(folderEntry->GetVisiblePath()));
+        }
+    }
+
     using namespace AzToolsFramework::AssetBrowser;
     const auto* currentEntry =
         m_ui->m_assetBrowserTreeViewWidget->currentIndex().data(AssetBrowserModel::Roles::EntryRole).value<const AssetBrowserEntry*>();
@@ -997,22 +1011,11 @@ void AzAssetBrowserWindow::BreadcrumbsPathChangedSlot(const QString& path) const
     }
 }
 
-void AzAssetBrowserWindow::BreadcrumbsPathEditedSlot(const QString& path) const
-{
-    const auto* entry = m_ui->m_assetBrowserTreeViewWidget->GetEntryByPath(path);
-    const auto* folderEntry = AzToolsFramework::AssetBrowser::Utils::FolderForEntry(entry);
-    if (folderEntry)
-    {
-        // No need to select the folder ourselves, callback from Breadcrumbs will take care of that
-        m_ui->m_pathBreadCrumbs->pushFullPath(FromStdString(folderEntry->GetFullPath()), FromStdString(folderEntry->GetVisiblePath()));
-    }
-}
-
-void AzAssetBrowserWindow::ViewChangedSlot() const
+void AzAssetBrowserWindow::UpdateFilterInLocalFilterModelSlot() const
 {
     QString path = m_ui->m_pathBreadCrumbs->fullPath();
     m_ui->m_pathBreadCrumbs->setCurrentPath("");
-    BreadcrumbsPathEditedSlot(path);
+    BreadcrumbsPathChangedSlot(path, true);
 }
 
 int AzAssetBrowserWindow::GetSelectionCount()

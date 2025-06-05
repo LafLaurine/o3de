@@ -544,8 +544,6 @@ namespace AzToolsFramework
 
         void AssetBrowserTableView::UpdateFilterInLocalFilterModel()
         {
-            Q_EMIT filterChangedSignal();
-
             if (!m_assetTreeView)
             {
                 return;
@@ -563,6 +561,7 @@ namespace AzToolsFramework
                 return;
             }
 
+            Q_EMIT UpdateFilterInLocalFilterModelSignal();
             bool hasString{ false };
             const QString tagString("String");
             const QString tagFolder("Folder");
